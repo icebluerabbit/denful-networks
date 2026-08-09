@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main, dev ]
+  workflow_dispatch:
+
+jobs:
+  check:
+    name: Lint & Verify
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v16
+
+      - name: Set up Cachix
+        uses: cachix/cachix-action@v15
+        with:
+          name: denful-networks
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Check dev sub-flake schema & outputs
+        run: nix flake check path:./dev
+
+      - name: Run Integration Tests
+        run: nix flake check ./test
+
+      - name: Verify Formatting
+        run: |
+          cd dev
+          nix fmt
+          git diff --exit-code
