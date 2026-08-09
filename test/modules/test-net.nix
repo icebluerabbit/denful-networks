@@ -22,7 +22,8 @@
   perSystem = { config, ... }: {
     checks.validate-test-net =
       let
-        tfConfig = builtins.fromJSON config.terranix.terranixConfigurations.test-net.result.terraformConfiguration.value;
+        raw = config.terranix.terranixConfigurations.test-net.result.terraformConfiguration.value;
+        tfConfig = if builtins.isString raw then builtins.fromJSON raw else raw;
       in
       if tfConfig.resource.null_resource.test.triggers.hello == "world" then
         config.packages.test-net
