@@ -93,10 +93,9 @@ If you need to customize settings (like using OpenTofu instead of Terraform), yo
 
 ```nix
   den.networks.x86_64-linux.home-infra = {
-    # Optional: defaults to pkgs.terraform
+    # Optional: defaults to pkgs.opentofu
     terraformPackage = pkgs.opentofu;
   };
-```
 ```
 
 ---
