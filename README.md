@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/icebluerabbit/denful-networks/actions/workflows/ci.yml/badge.svg)](https://github.com/icebluerabbit/denful-networks/actions/workflows/ci.yml)
 [![Release PR](https://github.com/icebluerabbit/denful-networks/actions/workflows/promote.yml/badge.svg)](https://github.com/icebluerabbit/denful-networks/actions/workflows/promote.yml)
-[![Framework: Den](https://img.shields.io/badge/framework-den-blue.svg?logo=nixos&logoColor=white)](https://github.com/denful/den)
+[![Framework: Den](https://img.shields.io/badge/framework-den-blue.svg?logo=nixos&logoColor=white)](https://github.com/vic/den)
 
 `denful-networks` is a reusable `den` extension that brings first-class declarative infrastructure management to the **Den** configuration framework using **Terranix** (Terraform/OpenTofu).
 
@@ -12,12 +12,12 @@ It registers a new `networks` entity type, allowing you to define your VPC subne
 
 ## Installation
 
-Add the flake input to your `flake-file.inputs` in your [dendritic.nix](file:///etc/nixos/modules/dendritic.nix) (or `flake.nix`):
+Add the flake input to your `flake-file.inputs` in your `dendritic.nix` (or `flake.nix`):
 
 ```nix
 flake-file.inputs = {
   denful-networks = {
-    url = "git+file:///projects/denful-networks";
+    url = "github:icebluerabbit/denful-networks";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 };
